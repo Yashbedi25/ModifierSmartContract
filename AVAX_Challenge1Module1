@@ -1,0 +1,36 @@
+// Write a smart contract that allows only the admin to access and call all the functions of the contract.
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
+
+contract greatestnum{
+
+    uint a;
+    uint b;
+    address owner;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner { 
+        require (owner == msg.sender, "only owner can access");
+        _;
+    }
+
+    function set (uint _a, uint _b) public onlyOwner{
+        a = _a;
+        b = _b;
+    }
+
+    function get() public view onlyOwner returns(uint){
+        uint c;
+        c=a+b;
+        if(a+b>18){
+            return c;
+        }
+        else{
+            return 0;
+        }
+    }
+}
